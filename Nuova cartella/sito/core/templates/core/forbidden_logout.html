@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{%block head_title %} {{ block.super }} - Logout {% endblock head_title %}
+
+
+  {% block content %}
+    <div class="row justify-content-center mt-3">
+        <div class="col-6 text-center">
+          <h4>ERRORE! Per effettuare il logout, devi essere loggato.</h4>
+        </div>
+    </div>
+{% endblock %}

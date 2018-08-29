@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if request.user.is_staff %}
+      <div class="card-body pl-0">
+        <a class="btn btn-sm btn-danger" href="{% url 'crea_sezione' %}">Crea sezione</a>
+      </div>
+  {% endif %}
+
+  {% for sezione in lista_sezioni %}
+    <div class="card my-3">
+        <div class="card-header">
+          <h4><a href="{{ sezione.get_absolute_url }}"><strong>{{ sezione.nome_sezione }}</strong></a></h4>
+          <h4 class="mb-0">{{ sezione.descrizione }}</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-3">
+              <!-- Dobbiamo specificare l'url del logo della sezione
+                  Url presente in settings.py, url dal queale verranno servite le immagini
+
+                  Andiamo a specificare con style, che l'immagine si deve prendere il spazion massimo consentito
+                  da col-lg-3  -->
+              <img src="{{ sezione.logo_sezione.url }}" alt="Logo sezione" style="max-width:100%">
+              <!-- set indica la relazione inversa -->
+              <p>Discussioni totali: {{ sezione.discussione_set.count }}<br>
+                Messaggi totali: {{ sezione.get_number_of_posts_in_section }}</p>
+            </div>
+            <div class="col-lg-9">
+              <p>Ultime discussioni</p>
+              <table class="table table-hover">
+                <tbody>
+                  {% for discussione in sezione.get_last_discussions.all %}
+                    <tr class="row">
+                      <td class="col-lg-7 col-6">
+                        <a href="{% url 'visualizza_discussione' pk=discussione.pk %}">{{ discussione.titolo }}</a>
+                      </td>
+                      <td class="col-lg-3 col-3">
+                        <a href="{% url 'user_profile' username=discussione.autore_discussione.username %}">{{ discussione.autore_discussione }}</a>
+                      </td>
+                      <td class="col-lg-2 col-3">
+                        <!-- set indicia la relazione inversa, in quanto nel modello non abbiamo impostato il related name -->
+                        Posts: {{ discussione.post_set.count }}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  {% endfor %}
+
+{% endblock content %}

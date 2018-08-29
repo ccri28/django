@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>Nome autore: {{ autore }}</h1>
+    <h3>Nazione: {{ autore.nazione }}</h3>
+    {% for libro in autore.libri.all %}
+      {{ libro.titolo }} <br>
+      {% for genere in libro.genere.all %} {{ genere }} {% endfor %} <br>
+      {{ libro.isbn }}
+      <hr>
+    {% endfor %}
+{% endblock content %}

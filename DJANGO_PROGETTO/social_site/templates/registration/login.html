@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %} {{ block.super }} - Login {% endblock head_title%}
+
+{% block content %}
+  <div class="row justify-content-center mt-3">
+    <div class="col-6 text-center">
+      <h2>Login al forum:</h2>
+      <form method="POST" action="{% url 'login' %}" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-info" value="Login">
+        <!-- andiamo a passare alla nostra View un valore di tipo next
+             che rappresente l'url di indirizzamento una volta che l'utente
+             ha effettuato il login -->
+        <input type="hidden" name="next" value="{{ next }}">
+      </form>
+      <br>
+      <p><a href="{% url 'password_reset' %}">Password dimenticata?</a></p>
+    </div>
+  </div>
+{% endblock content %}

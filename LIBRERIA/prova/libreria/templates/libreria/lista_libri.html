@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+   {% for libro in lista_libri %}
+      <h5><strong>Titolo: </strong> {{ libro.titolo }}</h5>
+      <h5><strong>Autore: </strong> <a href="{{ libro.autore.get_absolute_url }}">{{ libro.autore }}</a></h5>
+      <h5><strong>Genere: </strong> {% for genere in libro.genere.all %} {{ genere }} {% endfor %}</h5>
+      <h5><strong>Isbn: </strong> {{ libro.isbn }}</h5>
+      <hr>
+   {% endfor %}
+{% endblock content %}

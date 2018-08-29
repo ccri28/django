@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if request.user == user %}
+    Il tuo username: {{ user }}
+    <br>
+    La tua email: {{ user.email }}
+  {% endif %}
+{% endblock content %}
